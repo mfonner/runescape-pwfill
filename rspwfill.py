@@ -6,6 +6,7 @@ import pyautogui
 import argparse
 import subprocess
 import getpass
+import os
 
 #TODO: Handle arguments
 # Password manager or plaintext
@@ -17,9 +18,21 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-t',
         help='Target application/password to retrieve from pass')
 
+parser.add_argument('-f',
+        help='The absolute path to the file containing your password')
+
 args = parser.parse_args()
 
-def get_pw(target):
+
+def get_pw_file(fpath):
+    # The password should be the only text in the file
+
+    # Ensure supplied file path exists
+    if os.path.exists(args.f):
+        with open(args.f, 'r') as f:
+            return f.read()
+
+def get_pw_pass(target):
 
     # Source for the below code:
     # https://github.com/kai-dg/linux-dotfiles-scripts/blob/master/scripts/passpy.py
@@ -47,12 +60,18 @@ def main():
     pyautogui.keyDown('tab')
     pyautogui.keyUp('tab')
     pyautogui.keyUp('alt')
+
+    # When the RS3 launcher is changed to, the selected field is email
+    # Tab down to password
     pyautogui.keyDown('tab')
     pyautogui.keyUp('tab')
 
-    pwd = get_pw(args.t)
-
-    pyautogui.typewrite(pwd)
+    if args.t:
+        pwd = get_pw_pass(args.t)
+        pyautogui.typewrite(pwd)
+    if args.f:
+        pwd = get_pw_file(args.f)
+        pyautogui.typewrite(pwd)
 
 if __name__ == '__main__':
     main()
