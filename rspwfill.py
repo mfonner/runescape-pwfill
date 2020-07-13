@@ -45,12 +45,12 @@ def main():
     # Changing focused window
     # RS3 must be the nex window when focus is changed
 
-    # This is specific to my system
-    if "MANJARO" in platform.release():
-        pyautogui.keyDown('winleft')
-        pyautogui.keyDown('j')
-        pyautogui.keyUp('winleft')
-        pyautogui.keyUp('j')
+    # Most DEs in Linux use alt + tab
+    if "Linux" in platform.system():
+        pyautogui.keyDown('alt')
+        pyautogui.keyDown('tab')
+        pyautogui.keyUp('tab')
+        pyautogui.keyUp('alt')
         pyautogui.keyDown('tab')
         pyautogui.keyUp('tab')
     # Windows uses alt + tab
