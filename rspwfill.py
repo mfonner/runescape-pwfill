@@ -53,6 +53,7 @@ def main():
         pyautogui.keyUp('alt')
         pyautogui.keyDown('tab')
         pyautogui.keyUp('tab')
+
     # Windows uses alt + tab
     if "Windows" in platform.system():
         pyautogui.keyDown('alt')
@@ -61,6 +62,7 @@ def main():
         pyautogui.keyUp('alt')
         pyautogui.keyDown('tab')
         pyautogui.keyUp('tab')
+
     # MacOS uses command + tab
     if "Darwin" in platform.system():
         pyautogui.keyDown('command')
